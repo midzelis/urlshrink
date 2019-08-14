@@ -1,0 +1,28 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+
+    <aura:attribute name="url" type="String"/>
+    <aura:attribute name="shortened" type="String"/>
+    <aura:attribute name="apikey" type="String" access="global"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+	
+	<div>
+        <aura:if isTrue="{!!v.apikey}">
+			<p>You must specify the apikey to use this component</p>
+            <aura:set attribute="else">
+                <lightning:input required="true" label="Enter URL to shorten" name="url" value="{!v.url}"/>
+                <aura:if isTrue="{!v.shortened}">
+                    <div class="slds-form-element">
+                      <label class="slds-form-element__label" for="text-input-01">Shortened</label>
+                      <div class="slds-form-element__control">
+                        <ui:outputURL aura:id="short" target="_blank" value="{!v.shortened}" label="{!v.shortened}"/>
+                      </div>
+                    </div>
+                </aura:if>
+                
+                <lightning:button class="slds-grid slds-grid--align-center" iconName="utility:magicwand" onclick="{! c.onClick }" label="Shorten" />
+            </aura:set>
+    	</aura:if>
+       
+    </div>
+</aura:component>
